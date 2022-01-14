@@ -1,0 +1,42 @@
+name: XXTEMPLATEXX
+on: [push]
+jobs:
+  dependencies:
+    runs-on:  ubuntu-latest
+    steps:
+      - name: install cmake
+        run:  sudo apt install cmake
+
+  runs:
+    needs:    dependencies
+    runs-on:  ubuntu-latest
+    steps:
+      - name: install google logging library
+        run:  sudo apt install -y libunwind-dev libgoogle-glog-dev
+      - uses: actions/checkout@v2
+      - name: configure cmake
+        run:  cmake -H. -Bbuild
+      - name: Build src and lib files
+        run:  cmake --build build --target XXTEMPLATEXX
+      - name: Run the benchmarks
+        run: ./build/XXTEMPLATEXX
+
+  tests:
+    needs:    dependencies
+    runs-on:  ubuntu-latest
+    steps:
+      - name: install google logging library
+        run:  sudo apt install -y libunwind-dev libgoogle-glog-dev
+      - name: download catch2 v3
+        run:  git clone https://github.com/catchorg/Catch2.git
+      - name: setup catch2
+        run:  cmake -BCatch2/build -HCatch2 -DBUILD_TESTING=OFF
+      - name: build and install catch2
+        run: sudo cmake --build Catch2/build --target install
+      - uses: actions/checkout@v2
+      - name: configure cmake
+        run:  cmake -H. -Bbuild
+      - name: Build test files
+        run:  cmake --build build --target Test
+      - name: Run the tests
+        run: ./build/Test
