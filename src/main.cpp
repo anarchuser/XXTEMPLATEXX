@@ -17,7 +17,7 @@
 
 #include <iostream>
 
-#include "../config.h"
+#include "config.h"
 
 int main (int argc, char * argv[]) {
     google::InitGoogleLogging (argv[0]);

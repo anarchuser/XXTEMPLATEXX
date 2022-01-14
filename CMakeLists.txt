@@ -14,6 +14,10 @@ file(GLOB_RECURSE SRCS ${PROJECT_SOURCE_DIR}/src/*)
 list(REMOVE_ITEM SRCS ${PROJECT_SOURCE_DIR}/src/main.cpp)
 add_executable(XXTEMPLATEXX ${PROJECT_SOURCE_DIR}/src/main.cpp ${PROJECT_SOURCE_DIR}/config.h ${SRCS})
 
+include_directories(${PROJECT_SOURCE_DIR}/src/)
+include_directories(${PROJECT_SOURCE_DIR}/test/)
+include_directories(${PROJECT_SOURCE_DIR}/)
+
 # Define dependencies
 ## Google Logging Library
 target_link_libraries(XXTEMPLATEXX glog)
